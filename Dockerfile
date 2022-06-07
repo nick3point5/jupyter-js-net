@@ -7,7 +7,8 @@ ENV \
     DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=true
 
 ENV DOTNET_ROOT=/usr/share/dotnet \
-    PATH="$PATH:/usr/share/dotnet:/root/.dotnet/tools"
+    PATH="$PATH:/usr/share/dotnet:/root/.dotnet/tools" \
+		DOTNET_INTERACTIVE_CLI_TELEMETRY_OPTOUT=true
 
 WORKDIR /app
 
@@ -41,6 +42,7 @@ ENV HOME /app
 ENV SERVER_PORT 8888
 
 EXPOSE $SERVER_PORT
+RUN  /root/.dotnet/tools/dotnet-interactive jupyter install
 
-CMD /root/.dotnet/tools/dotnet-interactive jupyter install && jupyter lab --ip=* --port=$SERVER_PORT --no-browser --notebook-dir=$HOME --allow-root
+# CMD /root/.dotnet/tools/dotnet-interactive jupyter install && jupyter lab --ip=* --port=$SERVER_PORT --no-browser --notebook-dir=$HOME --allow-root
 
